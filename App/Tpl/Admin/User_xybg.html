@@ -1,0 +1,254 @@
+<h3>
+    {$title}
+</h3>
+<if condition="!$show">
+<div class="filter">
+    <form action="{:U(GROUP_NAME.'/User/xybg')}" method="post">
+        <input name="keyword" type="text" class="inpMain" placeholder="用户名" size="20" />
+        <input name="submit" class="btnGray" type="submit" value="筛选" />
+    </form>
+</div>
+</if>
+<div id="list">
+        
+        	<if condition="!$show">
+        	<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <th width="80" align="center">ID</th>
+                <th width="150" align="left">用户名</th>
+                <th width="150" align="left">手机号</th>
+                <th width="120">查询时间</th>
+                <th align="center">操作</th>
+            </tr>
+            <volist name="list" id="vo">
+                <tr>
+                    <td align="center">{$vo.id}</td>
+                    <td>{$vo.user}</td>
+                    <td>{$vo.mobile}</td>
+                    <td align="center">{$vo.date}</td>
+                    <td align="center">
+                    	<a href="{:U(GROUP_NAME.'/User/xybg')}&id={$vo.id}">详情</a>
+                    </td>
+                </tr>
+            </volist>
+           </table>
+            </if>
+            <if condition="$renlian">
+            	<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            		<tr>
+		                <th width="80" align="left" colspan="2" >人脸特征</th>
+		            </tr>
+		            <tr>
+		            	<td>
+		            		人脸数量
+		            	</td>
+		            	<td>
+		            		{$renlian.number}
+		            	</td>
+		            </tr>
+		            <tr>
+		            	<td>
+		            		人脸矩阵
+		            	</td>
+		            	<td>
+		            		X:{$renlian.rect.0};Y:{$renlian.rect.1};width:{$renlian.rect.2};height:{$renlian.rect.3}
+		            	</td>
+		            </tr>
+		            <tr>
+		            	<td>
+		            		人脸五官坐标点
+		            	</td>
+		            	<td>
+		            		{$renlian.landmark}
+		            	</td>
+		            </tr>
+            	</table>
+            	<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            		<tr>
+		                <th width="80" align="left" colspan="2" >身份证信息</th>
+		            </tr>
+		            <tr>
+		                <th width="80" align="center" colspan="2">正面</th>
+		            </tr>
+		            <tr><td>地址</td><td>{$sfzzm.address}</td></tr>
+		            <tr><td>姓名</td><td>{$sfzzm.name}</td></tr>
+		            <tr><td>民族</td><td>{$sfzzm.nationality}</td></tr>
+		            <tr><td>身份证号码</td><td>{$sfzzm.num}</td></tr>
+		            <tr><td>人脸位置</td><td>X:{$sfzzm.face_rect.center.x};Y:{$sfzzm.face_rect.center.y}</td></tr>
+		            <tr><td>人脸矩形</td><td>height:{$sfzzm.face_rect.size.height};width:{$sfzzm.face_rect.size.width}</td></tr>
+		            <tr><td>人脸顺时针角度</td><td>{$sfzzm.face_rect.angle}</td></tr>
+		            <tr>
+		                <th width="80" align="center" colspan="2">反面</th>
+		            </tr>
+		            <tr><td>有效期开始时间</td><td>{$sfzfm.start_date}</td></tr>
+		            <tr><td>有效期结束时间</td><td>{$sfzfm.end_date}</td></tr>
+		            <tr><td>签发机关</td><td>{$sfzfm.issue}</td></tr>
+            	</table>
+            </if>
+            <if condition="$show">
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <th width="80" align="left" colspan="2" >基本信息</th>
+            </tr>
+           
+                <tr>
+                    <td>姓名</td>
+                    <td>{$show.data.realName}</td>
+                </tr>
+                <tr>
+                    <td>本机号码</td>
+                    <td>{$show.data.basicInfo.mobileNo}</td>
+                </tr>
+                <tr>
+                    <td>入网时间</td>
+                    <td>{$show.data.basicInfo.registerDate}</td>
+                </tr>
+                <tr>
+                    <td>身份证号码</td>
+                    <td>{$show.data.basicInfo.idCard}</td>
+                </tr>
+                <tr>
+                    <td>地址</td>
+                    <td>{$show.data.basicInfo.address}</td>
+                </tr>
+                <tr>
+                    <td>星级</td>
+                    <td>{$show.data.basicInfo.vipLevelstr}</td>
+                </tr>
+                <tr>
+                    <td>邮箱</td>
+                    <td>{$show.data.basicInfo.email}</td>
+                </tr>
+                <tr>
+                    <td>可用积分</td>
+                    <td>{$show.data.basicInfo.pointsValuestr}</td>
+                </tr>
+                <tr>
+                    <td>可用余额</td>
+                    <td>{$show.data.basicInfo.amount}</td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <th colspan="4" align="left">前10次通话记录</th>
+            </tr>
+            <volist name="show.data.stati" id="vo">
+                <tr>
+                    <td>与本机通话手机号码</td>
+                    <td>{$vo.mobileNo}</td>
+                    <td>与本机通话次数</td>
+                    <td>{$vo.callCount}</td>
+                </tr>
+            </volist>
+            </table>
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <th colspan="5" align="left">最近6个月通话详单</th>
+            </tr>
+            <tr>
+            	<td>通话地点</td>
+            	<td>通话时间</td>
+            	<td>通话时长</td>
+            	<td>通话类型</td>
+            	<td>与本机通话手机号码</td>
+            </tr>
+            <volist name="show.data.callRecordInfo" id="vo">
+                <tr>
+                    <td>{$vo.callAddress}</td>
+                    <td>{$vo.callDateTime}</td>
+                    <td>{$vo.callTimeLength}</td>
+                    <td>{$vo.callType}</td>
+                    <td>{$vo.mobileNo}</td>
+                </tr>
+            </volist>
+            </table>
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <th colspan="5" align="left">近 6 个月账单信息</th>
+            </tr>
+            <tr>
+            	<td>本机号码</td>
+            	<td>账单月份</td>
+            	<td>套餐消费</td>
+            	<td>总金额</td>
+            	<td>实际费用</td>
+            </tr>
+            <volist name="show.data.bill" id="vo">
+                <tr>
+                    <td>{$vo.mobileNo}</td>
+                    <td>{$vo.startTime}</td>
+                    <td>{$vo.comboCost}</td>
+                    <td>{$vo.sumCost}</td>
+                    <td>{$vo.realCost}</td>
+                </tr>
+            </volist>
+            </table>
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <th colspan="5" align="left">近 6 个月短信信息</th>
+            </tr>
+            <tr>
+            	<td>本机号码</td>
+            	<td>与本机通话手机号码</td>
+            	<td>发送地</td>
+            	<td>发送时间</td>
+            	<td>发送类型</td>
+            </tr>
+            <volist name="show.data.smsInfo" id="vo">
+                <tr>
+                    <td>{$vo.mobileNo}</td>
+                    <td>{$vo.sendSmsToTelCode}</td>
+                    <td>{$vo.sendSmsAddress}</td>
+                    <td>{$vo.sendSmsTime}</td>
+                    <td>{$vo.sendType}</td>
+                </tr>
+            </volist>
+            </table>
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <th colspan="5" align="left">近 6 个月上网信息</th>
+            </tr>
+            <tr>
+            	<td>本机号码</td>
+            	<td>上网地点</td>
+            	<td>上网时间</td>
+            	<td>上网时长</td>
+            	<td>上网类型</td>
+            </tr>
+            <volist name="show.data.netInfo" id="vo">
+                <tr>
+                    <td>{$vo.mobileNo}</td>
+                    <td>{$vo.place}</td>
+                    <td>{$vo.netTime}</td>
+                    <td>{$vo.onlineTime}</td>
+                    <td>{$vo.netType}</td>
+                </tr>
+            </volist>
+            </table>
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <th colspan="4" align="left">近 6 个月办理业务信息</th>
+            </tr>
+            <tr>
+            	<td>本机号码</td>
+            	<td>业务名称</td>
+            	<td>业务开始时间</td>
+            	<td>业务消费</td>
+            </tr>
+            <volist name="show.data.businessInfo" id="vo">
+                <tr>
+                    <td>{$vo.mobileNo}</td>
+                    <td>{$vo.businessName}</td>
+                    <td>{$vo.beginTime}</td>
+                    <td>{$vo.cost}</td>
+                </tr>
+            </volist>
+            </table>
+            </if>
+        
+</div>
+<div class="clear"></div>
+<div class="pager">
+    {$page}
+</div>
+</div>

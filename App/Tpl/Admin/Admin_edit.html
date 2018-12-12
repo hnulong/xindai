@@ -1,0 +1,47 @@
+<h3>
+    <a href="{:U(GROUP_NAME.'/Admin/index')}" class="actionBtn">返回列表</a>
+    {$title}
+</h3>
+<form action="{:U(GROUP_NAME.'/Admin/edit')}" method="post">
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <input type="hidden" name="editId" value="{$data.id}">
+        <tr>
+            <td width="100" align="right">管理员名称</td>
+            <td>
+                <input type="text" value="{$data.username}" name="username" size="40" class="inpMain" />
+            </td>
+        </tr>
+        <tr>
+            <td align="right">密码</td>
+            <td>
+                <input type="password" name="password" size="40" class="inpMain" /> * 如不修改请留空!
+            </td>
+        </tr>
+        <tr>
+            <td align="right">确认密码</td>
+            <td>
+                <input type="password" name="password_confirm" size="40" class="inpMain" />
+            </td>
+        </tr>
+        <tr>
+            <td align="right">状态</td>
+            <td>
+                <label>
+                    <input type="radio" name="status" value="0" <if condition="$data[status] eq 0">checked</if> >
+                    禁止
+                </label>
+
+                <label>
+                    <input type="radio" name="status" value="1" <if condition="$data[status] eq 1">checked</if> >
+                    正常
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="submit" class="btn" value="提交" />
+            </td>
+        </tr>
+    </table>
+</form>

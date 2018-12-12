@@ -1,0 +1,100 @@
+<h3>
+    <a href="{:U(GROUP_NAME.'/User/index')}" class="actionBtn">返回列表</a>
+ 	基本资料
+</h3>
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <td width="100" align="right">手机号/用户名</td>
+            <td>
+                <span>{$baseinfo.user}</span>
+            </td>
+        </tr>
+        <tr>
+            <td width="100" align="right">姓名/身份证号</td>
+            <td>
+                <span>{$baseinfo.name} | {$baseinfo.usercard}</span>
+            </td>
+        </tr>
+        <tr>
+            <td width="100" align="right">身份证拍照</td>
+            <td>
+            	<span>
+            		身份证正面:<a href="{$baseinfo.cardphoto_1}" target="_blank">点击查看</a>
+            	</span>
+            	<br />
+            	<span>
+            		身份证反面:<a href="{$baseinfo.cardphoto_2}" target="_blank">点击查看</a>
+            	</span>
+            	<br />
+            	<span>
+            		手持身份证:<a href="{$baseinfo.cardphoto_3}" target="_blank">点击查看</a>
+            	</span>
+            </td>
+        </tr>
+        <tr>
+            <td width="100" align="right">现居住地</td>
+            <td>
+                <span>{$baseinfo.addess_ssq} {$baseinfo.addess_more}</span>
+            </td>
+        </tr>
+        <tr>
+            <td width="100" align="right">单位信息</td>
+            <td>
+            	<span>
+            		单位名称: {$baseinfo.dwname}
+            	</span>
+            	<br />
+            	<span>
+            		单位地址: {$baseinfo.dwaddess_ssq} {$baseinfo.dwaddess_more}
+            	</span>
+            	<br />
+            	<span>
+            		职位: {$baseinfo.position}
+            	</span>
+            	<br />
+            	<span>
+            		工龄: {$baseinfo.workyears} 年
+            	</span>
+            	<br />
+            	<span>
+            		单位电话: {$baseinfo.dwphone}
+            	</span>
+            	<br />
+            	<span>
+            		月收入: {$baseinfo.dwysr}
+            	</span>
+            	<br />
+            	<span>
+            		联系人1: {$baseinfo.persongx_1} : {$baseinfo.personname_1} : {$baseinfo.personphone_1}
+            	</span>
+            	<br />
+            	<span>
+            		联系人2: {$baseinfo.persongx_2} : {$baseinfo.personname_2} : {$baseinfo.personphone_2}
+            	</span>
+            	
+            </td>
+        </tr>
+        <tr>
+            <td width="100" align="right">银行卡信息</td>
+            <td>
+            	<span>
+            		银行名称: {$baseinfo.bankname}
+            	</span>
+            	<br />
+            	<span>
+            		银行卡号: {$baseinfo.bankcard}
+            	</span>
+            </td>
+        </tr>
+    </table>
+    <h3>补充资料</h3>
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    	<tr>
+    		<foreach name="otherinfo" item="vo">
+    			<p>
+    				{$vo} | 
+    				<a href="{$vo}" target="_blank">点击查看</a>
+    			</p>
+    		</foreach>
+    	</tr>
+    </table>

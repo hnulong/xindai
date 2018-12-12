@@ -1,0 +1,98 @@
+<div id="dcLeft">
+	<div id="menu">
+		<ul class="top">
+            <li>
+                <a href="{:U(GROUP_NAME.'/Main/index')}">
+                    <i class="home"></i>
+                    <em>管理首页</em>
+                </a>
+            </li>
+        </ul>
+        <ul>
+            <li id="nav_System_index">
+                <a href="{:U(GROUP_NAME.'/System/index')}">
+                    <i class="system"></i>
+                    <em>系统设置</em>
+                </a>
+            </li>
+            <li id="nav_Admin_index">
+                <a href="{:U(GROUP_NAME.'/Admin/index')}">
+                    <i class="manager"></i>
+                    <em>网站管理员</em>
+                </a>
+            </li>
+            <li id="nav_Block_index">
+            	<a href="{:U(GROUP_NAME.'/Block/index')}">
+            		<i class="theme"></i>
+            		<em>自由块</em>
+            	</a>
+            </li>
+        </ul>
+        <ul>
+            <li id="nav_Article_catlist">
+                <a href="{:U(GROUP_NAME.'/Article/catlist')}">
+                    <i class="articleCat"></i>
+                    <em>文章分类</em>
+                </a>
+            </li>
+            <li id="nav_Article_index">
+                <a href="{:U(GROUP_NAME.'/Article/index')}">
+                    <i class="article"></i>
+                    <em>文章列表</em>
+                </a>
+            </li>
+        </ul>
+        <ul>
+        	<li id="nav_User_index">
+        		<a href="{:U('User/index')}">
+        			<i class="user"></i>
+        			<em>用户管理</em>
+        		</a>
+        	</li>
+        	<li id="nav_Daikuan_index">
+        		<a href="{:U(GROUP_NAME.'/Daikuan/index')}">
+        			<i class="product"></i>
+        			<em>借款列表</em>
+        		</a>
+        	</li>
+            <li id="nav_Daikuan_index1">
+                <a href="{:U(GROUP_NAME.'/Daikuan/index1',array('isYuqi'=>1))}">
+                    <i class="product"></i>
+                    <em>逾期借款列表</em>
+                </a>
+            </li>
+        	<li id="nav_Huankuan_index">
+        		<a href="{:U(GROUP_NAME.'/Bills/index')}">
+        			<i class="guestbook"></i>
+        			<em>还款列表</em>
+        		</a>
+        	</li>
+
+        	<li id="nav_Payorder_index">
+        		<a href="{:U(GROUP_NAME.'/Payorder/index')}">
+        			<i class="order"></i>
+        			<em>订单列表</em>
+        		</a>
+        	</li>
+           
+        </ul>
+        <ul>
+        	<li id="nav_User_xybg">
+        		<a href="{:U('User/xybg')}">
+        			<i class="user"></i>
+        			<em>信用报告</em>
+        		</a>
+        	</li>
+        </ul>
+
+
+	</div>
+</div>
+<script>
+    //设置cur效果
+    var MODULE_NAME = "{:MODULE_NAME}";
+    var ACTION_NAME = "{:ACTION_NAME}";
+    if(MODULE_NAME != "Main"){
+        $("#nav_"+MODULE_NAME+"_"+ACTION_NAME).addClass("cur");
+    }
+</script>

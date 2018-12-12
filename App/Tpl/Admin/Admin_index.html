@@ -1,0 +1,57 @@
+<h3><a href="{:U(GROUP_NAME.'/Admin/add')}" class="actionBtn">添加管理员</a>{$title}</h3>
+<style>
+.seach_span{
+    float: left;
+    line-height: 30px;
+    font-size: 16px;
+}
+</style>
+<div class="filter">
+    <form action="{:U(GROUP_NAME.'/Admin/index')}" method="post">
+        <font class="seach_span">管理员名称:</font>
+        <input name="username" type="text" class="inpMain" value="{$seach_name}" size="20" />
+        <input name="submit" class="btnGray" type="submit" value="筛选" />
+    </form>
+</div>
+
+
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    <tr>
+        <th width="30" align="center">编号</th>
+        <th align="left">管理员名称</th>
+        <th align="center">添加时间</th>
+        <th align="center">最后登录时间</th>
+        <th align="center">状态</th>
+        <th align="center">操作</th>
+    </tr>
+    <foreach name="data" item="vo">
+        <tr>
+            <td align="center">{$vo.id}</td>
+            <td>{$vo.username}</td>
+            <td align="center">{$vo.addtime|date="Y-m-d H:i:s",###}</td>
+            <td align="center">{$vo.lastlogin|date="Y-m-d H:i:s",###}</td>
+            <td align="center">
+                <if condition="$vo['status'] eq 1">
+                    正常
+                    <else/>
+                    禁止
+                </if>
+            </td>
+            <td align="center">
+                <a href="{:U(GROUP_NAME.'/Admin/edit',array('editid' => $vo['id']))}">编辑</a> |
+                <a href="javascript:;" onclick="delAdmin('{$vo.username}','{:U(GROUP_NAME.'/Admin/del',array('id' => $vo['id'] ))}');">删除</a>
+            </td>
+        </tr>
+    </foreach>
+</table>
+<div class="pager">{$page}</div>
+<script>
+    function delAdmin(username,jumpurl){
+        layer.confirm(
+                '确定要删除管理员:'+username+'吗?',
+                function (){
+                    window.location.href = jumpurl;
+                }
+        );
+    }
+</script>

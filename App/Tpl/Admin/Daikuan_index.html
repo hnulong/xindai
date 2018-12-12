@@ -1,0 +1,189 @@
+<h3>
+    {$title}
+</h3>
+<present name="yuqi">
+    <else />
+<div class="filter">
+    <form action="{:U(GROUP_NAME.'/Daikuan/index')}" method="post">
+        <input name="keyword" type="text" class="inpMain" value="{$keyword}" size="20" />
+        <input name="submit" class="btnGray" type="submit" value="筛选" />
+    </form>
+</div>
+</present>
+<div id="list">
+        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <present name="yuqi">
+                    <th width="50" align="center">ID</th>
+                    <th width="120" align="center">订单号</th>
+                    <th width="80" align="center">用户名</th>
+                    <th width="70">借款金额</th>
+                    <th width="70">逾期手续费</th>
+                    <th width="70">借款期限</th>
+                    <th width="150" align="center">创建日期</th>
+                    <th width="150" align="center">还款日期</th>
+                    <th width="80">逾期天数</th>
+                    <th width="120">个人资料</th>
+                    <else />
+                    <th width="50" align="center">ID</th>
+                    <th width="120" align="center">订单号</th>
+                    <th width="80" align="center">用户名</th>
+                    <th width="70">借款金额</th>
+                    <th width="70">借款期限</th>
+                    <th width="150" align="center">创建日期</th>
+                    <th width="80">状态</th>
+                    <th width="120">个人资料</th>
+                    <th align="center">操作</th>
+                </present>
+
+            </tr>
+                <present name="yuqi">
+                    <volist name="list" id="vo">
+                        <tr>
+                    <td align="center">{$vo.id}</td>
+                    <td align="center">{$vo.ordernum}</td>
+                    <td align="center">{$vo.user}</td>
+                    <td align="center">{$vo.money}元</td>
+                    <td align="center">{$vo.yuqi}元</td>
+                    <td align="center">{$vo.months}周</td>
+                    <td align="center">{$vo.addtime|date='Y-m-d H:i:s',###}</td>
+                    <td align="center">{$vo.time}</td>
+                    <td>{$vo.days}天</td>
+                    <th align="center" width="120"><a onmouseover="this.style.color='red'" onmouseout="this.style.color='#626262'" href="{:U(GROUP_NAME.'/User/userinfo',array('user' => $vo['user']))}">查看资料</a></th></tr>
+                    </volist>
+                    <else />
+                    <volist name="list" id="vo">
+                    <tr>
+                        <td align="center">{$vo.id}</td>
+                        <td align="center">{$vo.ordernum}</td>
+                        <td align="center">{$vo.user}</td>
+                        <td align="center">{$vo.money}元</td>
+                        <td align="center">{$vo.months}周</td>
+                        <td align="center">{$vo.addtime|date='Y-m-d H:i:s',###}</td>
+                        <!-- <td align="center">
+                            <php>
+                                if($vo['status'] == 0)echo "支付失败";
+                                if($vo['status'] == 1)echo "正在审核订单";
+                                if($vo['status'] == 2)echo "订单打款成功";
+                                if($vo['status'] == '-1')echo "审核不通过";
+                            </php>
+                        </td> -->
+                        <if condition="$vo['status'] eq 0 ">
+                            <td align="center" style="color:red">支付失败</td>
+                            <elseif condition="$vo['status'] eq 1"/>
+                            <td align="center">正在审核订单</td>
+                            <elseif condition="$vo['status'] eq 2"/>
+                            <td align="center" style="color:green">订单打款成功</td>
+                            <elseif condition="$vo['status'] eq -1"/>
+                            <td align="center" style="color:red">审核不通过</td>
+                        </if>
+                        <th align="center" width="120"><a onmouseover="this.style.color='red'" onmouseout="this.style.color='#626262'" href="{:U(GROUP_NAME.'/User/userinfo',array('user' => $vo['user']))}">查看资料</a></th>
+                        <td align="center">
+                            <a href="javascript:changestatus('{$vo.ordernum}','{$vo.id}');">修改订单状态</a> |
+                            <a href="javascript:showbank('{$vo.bank}','{$vo.banknum}');">查看打款信息</a> |
+                            <a href="javascript:del('{$vo.ordernum}','{:U(GROUP_NAME.'/Daikuan/del',array('id'=>$vo['id']))}');">删除订单</a>
+                        </td>
+                    </tr>
+                    </volist>
+                </present>
+
+
+        </table>
+</div>
+<div class="clear"></div>
+<div class="pager">
+    {$page}
+</div>
+</div>
+<script>
+    function del(num,jumpurl){
+        layer.confirm(
+                '确定要删除借款订单:'+num+'吗?',
+                function (){
+                    window.location.href = jumpurl;
+                }
+        );
+    }
+    function showbank(bankname,banknum){
+  		layer.alert(
+  			'打款银行:' + bankname + "<br>" + '银行卡号:' + banknum,
+  			{
+	    		skin: 'layui-layer-lan',
+	    		closeBtn: 0,
+	    		anim: 4
+  			}
+  		);
+    }
+    function changestatus(ordernum,oid){
+    	$("#changestatus_span").html(ordernum);
+    	$("#orderid").val(oid);
+		layer.open({
+		  	type: 1,
+		  	skin: 'layui-layer-rim', //加上边框
+		  	area: ['420px', '165px'], //宽高
+		  	content: $("#changestatus_div").html()
+		});
+    }
+    function savestatus(){
+    	var id = $("#orderid").val();
+    	var status = $('input:radio[name="status"]:checked').val();
+    	if(status != 'undefined' && status != '' && status != null){
+    		$.post(
+    			"{:U(GROUP_NAME.'/Daikuan/changestatus')}",
+    			{id:id,status:status},
+    			function(data,state){
+    				if(state != "success"){
+    					layer.msg("请求数据失败!");
+    				}else if(data.status == 1){
+    					layer.msg("保存成功!");
+    					setTimeout(function(){
+    						window.location.href = window.location.href;
+    					},2000);
+    				}else{
+    					layer.msg(data.msg);
+    				}
+    			}
+    		);
+    	}else{
+    		layer.msg("请选择订单状态!");
+    	}
+    }
+</script>
+<div style="display: none;" id="changestatus_div">
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <td width="100" align="right">订单号</td>
+            <td>
+                <span id="changestatus_span"></span>
+                <input type="hidden" id="orderid" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td align="right">状态</td>
+            <td>
+                <label>
+                    <input type="radio" name="status" value="0"  >
+					支付失败
+                </label>
+                <label>
+                    <input type="radio" name="status" value="1"  >
+					正在审核
+                </label>
+                <label>
+                    <input type="radio" name="status" value="2"  >
+					打款成功
+                </label>
+                <label>
+                    <input type="radio" name="status" value="-1"  >
+					审核不通过
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" onclick="savestatus();" class="btn" value="提交" />
+            </td>
+        </tr>
+    </table>
+</div>

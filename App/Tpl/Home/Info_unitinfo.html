@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title> <Somnus:sitecfg name="sitetitle"/> </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="description" content=" <Somnus:sitecfg name="sitedescription"/> ">
+<meta name="Keywords" content=" <Somnus:sitecfg name="sitekeywords"/> ">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/mui.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/mui.picker.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/mui.poppicker.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/newpay-bb7fcb5546.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/feiqi-ee5401a8e6.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/pay-2b02ca7987.css">
+<style>
+	.mui-input-group .mui-input-row, .mui-input-row{
+	    height: 45px;
+	}
+	.marea{padding-right: 15px;}
+	.regfrm label {
+	    padding: 14px 15px;
+	}
+	.marea label {
+	    padding: 14px 0;
+	}
+	.mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+	    height: 45px;
+	    text-align: right;
+	}
+	.mui-input-row:last-child:after{
+    height: 0;
+	}
+	@media screen and (max-width: 321px){
+		.marea label {
+		    font-size: 14px;
+		    width: 24%;
+		    padding-top: 15px;
+		}
+		.marea label~input {
+		    width: 76%;
+		}
+		.regfrm .mui-input-row label {
+		    width: 24%;
+		    white-space: nowrap;
+		    font-size: 14px;
+		    padding: 15px 15px;
+		}
+		.regfrm .mui-input-row input {
+		    font-size: 14px;
+		    width: 74%;
+		}			
+	}
+	@media screen and (max-width: 350px){
+		.marea label~input {
+	        font-size: 13px;			   
+		}
+	}
+	.seltarr {
+	    display: block;
+	    position: absolute;
+	    top: 20px;
+	    right: 10px;
+	}
+	.info_span{
+	    float: right;
+	    position: absolute;
+	    right: 2px;
+	    top: 12px;
+	}
+</style>
+</head>
+<body class="newbg">
+ 	<!-- header -->
+ 	<header class="mui-bar mui-bar-nav hnav">
+		<a class="back" href="{:U('Info/index')}"></a>
+		<h1 class="mui-title">单位信息</h1>
+	</header>
+	<!-- header end-->
+<div class="mui-content">
+	<!-- paymoney -->
+	<article class="tipinfo">
+		填写真实有效的信息，审核才会通过哦~
+	</article>
+	<div class="mui-input-group regfrm">
+		<div class="mui-input-row">
+			<label>单位名称</label>
+			<input type="text" id="dwname" class="mui-input-clear mui-input nofocus" value="{$userinfo.dwname}" placeholder="请输入单位名称" data-input-clear="2">
+		</div>
+		<div class="mui-input-row">
+			<label>职位</label>
+			<input id="position" value="{$userinfo.position}" type="text" class="mui-input-clear mui-input nofocus" placeholder="请输入职位" data-input-clear="2">
+		</div>
+		<div class="mui-input-row">
+			<label>单位电话</label>
+			<input type="text" id="dwphone" class="mui-input-clear mui-input nofocus" value="{$userinfo.dwphone}" placeholder="号码加区号" data-input-clear="2" style="right: 55px;position: absolute;">
+			<span class="info_span">非必填</span>
+		</div>
+		<div class="mui-input-row">
+			<label>工作年龄</label>
+			<input id="workyears" value="{$userinfo.workyears}" type="text" class="mui-input-clear mui-input nofocus" placeholder="请输入工作年龄" data-input-clear="2" style="right: 25px;position: absolute;">
+			<span class="info_span">年</span>
+		</div>
+		<div class="mui-input-row">
+			<label>单位地址</label>
+			 <input id='showCityPicker2' name="showCityPicker2" data-input-clear="2" class="mui-input-clear mui-input inputblur" value="{$userinfo.dwaddess_ssq}" placeholder="请选择省市区"  type='text'>
+		</div>
+		<!-- dan -->
+		<div class="mui-input-row">
+			<label>详细地址</label>
+		    <input id="dwaddess_more" type="text" value="{$userinfo.dwaddess_more}" class="mui-input-clear mui-input nofocus" placeholder="例：东北石油大学启智寝室楼2A608" data-input-clear="2">
+		</div>
+		<div class="mui-input-row">
+			<label>月收入</label>
+			<input id="dwysr" value="{$userinfo.dwysr}" type="text" class="mui-input-clear mui-input nofocus" placeholder="请输入现工作月收入" data-input-clear="2" style="right: 25px;position: absolute;">
+			<span class="info_span">元</span>
+		</div>
+		<!--现居住地址-->
+		<div class="mui-input-row">
+			<label>现居住地址</label>
+			 <input id='showCityPicker1' name="showCityPicker1" data-input-clear="2" class="mui-input-clear mui-input inputblur" value="{$userinfo.addess_ssq}" placeholder="请选择省市区"  type='text'>
+		</div>
+		<div class="mui-input-row">
+			<label>详细地址</label>
+		    <input id="addess_more" type="text" value="{$userinfo.addess_more}" class="mui-input-clear mui-input nofocus" placeholder="例：东北石油大学启智寝室楼2A608" data-input-clear="2">
+		</div>
+		<!--紧急联系人-->
+		<article class="tipinfo">
+			直系亲属联系人
+		</article>
+		<article class="cominfo">
+			<div class="container">
+				<!-- input -->
+				<div class="inpifo">
+		    		<div class="input-group">
+					    <span class="input-group-addon">姓名</span>
+					    <div class="pr">
+				    		<input type="text" id="xingming1" value="{$userinfo.personname_1}" class="form-control winpt" placeholder="请输入联系人姓名" autofocus="" style="width: 100%;">
+				    	</div>
+		    		</div>
+		    	</div>
+		    	<div class="inpifo">
+					<div class="input-group">
+					    <span class="input-group-addon">手机号</span>
+					    <input type="text" id="phone1" value="{$userinfo.personphone_1}" name="phone1" placeholder="请输入手机号" class="form-control">
+		    		</div>
+		    	</div>
+		    	<div class="inpifo">
+					<div class="input-group">
+					    <span class="input-group-addon">关系</span>
+					    <input type="text" id="zxqsname1" value="{$userinfo.persongx_1}" name="personname1" placeholder="请选择关系" class="form-control">
+		    		</div>		    	
+		    	</div>
+		    </div>
+		</article>
+		<article class="tipinfo">
+			其他联系人
+		</article>
+		<article class="cominfo">
+			<div class="container">
+				<!-- input -->
+				<div class="inpifo">
+		    		<div class="input-group">
+					    <span class="input-group-addon">姓名</span>
+					    <div class="pr">
+				    		<input type="text" id="xingming2" value="{$userinfo.personname_2}" class="form-control winpt" placeholder="请输入联系人姓名" autofocus="" style="width: 100%;">
+				    	</div>
+		    		</div>
+		    	</div>
+		    	<div class="inpifo">
+					<div class="input-group">
+					    <span class="input-group-addon">手机号</span>
+					    <input type="text" id="phone2" value="{$userinfo.personphone_2}"  placeholder="请输入手机号" class="form-control">
+		    		</div>
+		    	</div>
+		    	<div class="inpifo">
+					<div class="input-group">
+					    <span class="input-group-addon">关系</span>
+					    <input type="text" id="zxqsname2" value="{$userinfo.persongx_2}" name="personname2" placeholder="请选择关系" class="form-control">
+		    		</div>		    	
+		    	</div>
+		    </div>
+		</article>
+		<!--紧急联系人-->
+	</div>
+	<section class="msub" style="position: relative;">
+		<button type="button" class="mui-btn mui-btn-danger mui-button-pay mui-button-gry" onclick="saveInfo();">提交</button>
+		<!-- 提示 -->
+		<div style="display: none;position: absolute;" class="errdeo" id="messageBox">
+		</div>	
+	</section>
+</div>
+<script src="__PUBLIC__/home/js/jquery.js"></script>
+<script src="__PUBLIC__/home/js/stuCheck-ae09551939.js"></script>
+<script src="__PUBLIC__/home/js/geihuaCom-1088667498.js"></script>
+<script src="__PUBLIC__/home/js/mui.min.js"></script>
+<script src="__PUBLIC__/home/js/mui-bd98b45634.picker.js"></script>
+<script src="__PUBLIC__/home/js/mui-9fb36284ae.poppicker.js"></script>
+<script src="__PUBLIC__/home/js/city-564994092a.data.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/home/js/city-67f8c196d0.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script>
+$('#sel').change(function(){
+	change('sel','sela')
+});
+$('.inputblur').click(function(){
+	$(this).blur();
+	$('.nofocus').blur();
+});
+(function($, doc) {
+	$.init();
+	$.ready(function() {
+		var cityPicker2 = new $.PopPicker({
+			layer: 3
+		});
+		cityPicker2.setData(cityData3);
+		var showCityPickerButton2 = doc.getElementById('showCityPicker2');
+		var showCityPickerButton1 = doc.getElementById('showCityPicker1');
+		var cityResult2 = doc.getElementById('cityResult2');
+		showCityPickerButton2.addEventListener('tap', function(event) {
+			var input = document.getElementsByClassName('nofocus');
+			for (var i = 0; i < input.length; i++) {
+				var _input = input[i];
+				_input.blur();
+			}
+			cityPicker2.show(function(items) {
+				if (typeof(items[2].text) == "undefined") { 
+					showCityPickerButton2.value = (items[0] || {}).text + " " + (items[1] || {}).text;
+				} else {
+					showCityPickerButton2.value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+				}
+			});
+		}, false);
+		showCityPickerButton1.addEventListener('tap', function(event) {
+			var input = document.getElementsByClassName('nofocus');
+			for (var i = 0; i < input.length; i++) {
+				var _input = input[i];
+				_input.blur();
+			}
+			cityPicker2.show(function(items) {
+				if (typeof(items[2].text) == "undefined") { 
+					showCityPickerButton1.value = (items[0] || {}).text + " " + (items[1] || {}).text;
+				} else {
+					showCityPickerButton1.value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+				}
+			});
+		}, false);
+		var person = new $.PopPicker({
+			layer: 3
+		});
+		person.setData([{value:"父母",text:"父母"},{value:"同事",text:"同事"},{value:"兄妹",text:"兄妹"},{value:"朋友",text:"朋友"}]);
+		var showCityPickerButton = doc.getElementById('zxqsname1');
+		var showCityPickerButton3 = doc.getElementById('zxqsname2');
+		var personResult = doc.getElementById('cityResult2');
+		showCityPickerButton.addEventListener('tap', function(event) {
+			var input = document.getElementsByClassName('nofocus');
+			for (var i = 0; i < input.length; i++) {
+				var _input = input[i];
+				_input.blur();
+			}
+			person.show(function(items) {
+				var tmpval = (items[0] || {}).text;
+				setPerson("personname1",tmpval);
+			});
+		}, false);
+		showCityPickerButton3.addEventListener('tap', function(event) {
+			var input = document.getElementsByClassName('nofocus');
+			for (var i = 0; i < input.length; i++) {
+				var _input = input[i];
+				_input.blur();
+			}
+			person.show(function(items) {
+				var tmpval = (items[0] || {}).text;
+				setPerson("personname2",tmpval);
+			});
+		}, false);
+	});
+})(mui, document);
+
+function setPerson(spanid,valname){
+	$("input[name='"+spanid+"']").val(valname);
+}
+
+function showalert(msg){
+	$("#messageBox").html(msg);
+	$("#messageBox").show();
+	setTimeout(function(){
+		$("#messageBox").hide();
+	},2000);
+}
+
+function checkval(val_){
+	if(val_ == '' || val_ == null){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+//保存资料
+function saveInfo(){
+	var dwname = $("#dwname").val();
+	var dwaddess_ssq = $("#showCityPicker2").val();
+	var dwaddess_more = $("#dwaddess_more").val();
+	var dwposition = $("#position").val();
+	var workyears = $("#workyears").val();
+	var dwphone = $("#dwphone").val();
+	var dwysr = $("#dwysr").val();
+	var addess_ssq = $("#showCityPicker1").val();
+	var addess_more = $("#addess_more").val();
+	var personname_1 = $("#xingming1").val();
+	var personname_2 = $("#xingming2").val();
+	var personphone_1 = $("#phone1").val();
+	var personphone_2 = $("#phone2").val();
+	var persongx_1 = $("#zxqsname1").val();
+	var persongx_2 = $("#zxqsname2").val();
+	if(checkval(dwname) && checkval(dwaddess_ssq) && checkval(dwaddess_more) && checkval(dwposition) && checkval(workyears) && checkval(dwysr) && checkval(addess_ssq) && checkval(addess_more) && checkval(persongx_1) && checkval(persongx_2) && checkval(personname_1) && checkval(personname_2) && checkval(personphone_1) && checkval(personphone_2) ){
+		$.post(
+			"{:U('Info/unitinfo')}",
+			{
+				dwname:dwname,
+				dwaddess_ssq:dwaddess_ssq,
+				dwaddess_more:dwaddess_more,
+				position:dwposition,
+				workyears:workyears,
+				dwphone:dwphone,
+				dwysr:dwysr,
+				addess_ssq:addess_ssq,
+				addess_more:addess_more,
+				personname_1:personname_1,
+				personname_2:personname_2,
+				personphone_1:personphone_1,
+				personphone_2:personphone_2,
+				persongx_1:persongx_1,
+				persongx_2:persongx_2
+			},
+			function (data,state){
+				if(state != "success"){
+					showalert("请求数据失败,请重试!");
+				}else if(data.status == 1){
+					showalert("保存成功!");
+					window.location.href = "{:U('Info/index')}";
+				}else{
+					showalert(data.msg);
+				}
+			}
+		);
+	}else{
+		showalert("资料填写不完整,请检查!");
+	}
+}
+</script>
+<div style="display: none;">
+	<Somnus:sitecfg name="sitecode"/>
+</div>
+</body>
+</html>

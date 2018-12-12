@@ -1,0 +1,19 @@
+{
+    "name": "openapi/sdk",
+    "description": "sdk",
+    "type": "sdk",
+    "authors": [
+        {
+            "name": "LiMinghua",
+            "email": "lmh@fshows.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "shq\\openapi\\": "src"
+        }
+    }
+}

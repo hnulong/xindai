@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title> <Somnus:sitecfg name="sitetitle"/> </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="description" content=" <Somnus:sitecfg name="sitedescription"/> ">
+<meta name="Keywords" content=" <Somnus:sitecfg name="sitekeywords"/> ">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/mui.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/newpay-bb7fcb5546.css">
+<style type="text/css">
+.mui-content {
+    margin-top: 44px;
+}
+input{
+	font-size: 16px;
+}
+@media screen and (max-width: 320px){
+/*	.entergroup span.t1{margin-top:-6px;}*/
+	.entergroup span.t2{ margin-top:-2px;}
+	.entergroup span.t3{ margin-top:-2px;}
+}
+.entergroup .w55 {
+    height: 32px;
+}
+</style>
+</head>
+<body class="newbg">
+ 	<!-- header -->
+ 	<header class="mui-bar mui-bar-nav hnav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="{:U('Info/index')}"></a>
+		<h1 class="mui-title">收款银行卡</h1>
+	</header>
+
+	<!-- header end-->
+<form id="form" method="post" onsubmit="return false">
+<section class="mui-content">
+	<section class="mui-ngroup">
+		<!-- group1 -->
+		<div class="cf entergroup">
+			<span class="fl">持卡人姓名</span>
+		    <span class="fr naclas pr0 t1" >{$userinfo.name}</span>
+		</div>
+		<!-- group1 end-->
+		<!-- group1 -->
+		<div class="cf entergroup">
+			<span class="fl">持卡人身份证号</span>
+		    <span class="fr naclas pr0 t2">{$userinfo.usercard}</span>
+		</div>
+		<!-- group1 end-->
+	</section>
+	<section class="mt10 mui-ngroup  h_input">
+		<!-- group1 -->
+		<!-- group1 -->
+		<div class="cf entergroup">
+			<span class="fl">开户银行</span>
+		    <a class="selar fr" href="javascript:;" >
+		    	<span id="bankname">工商银行</span>
+		    	<span class="mgarr ml10 bank_icon"></span>
+		    </a>
+		    <input type="hidden" name="banks" id="banks" value="工商银行">
+	   		<select class="form-control selsch" onchange="changeBank();" id="bank">
+	   			<option value="工商银行">工商银行</option>
+	   			<option value="中国银行">中国银行</option>
+	   			<option value="建设银行">建设银行</option>
+	   			<option value="招商银行">招商银行</option>
+	   			<option value="广发银行">广发银行</option>
+	   			<option value="邮储银行">邮储银行</option>
+	   			<option value="农业银行">农业银行</option>
+	   			<option value="兴业银行">兴业银行</option>
+	   			<option value="平安银行">平安银行</option>
+	   			<option value="中信银行">中信银行</option>
+	   			<option value="华夏银行">华夏银行</option>
+	   			<option value="光大银行">光大银行</option>
+	   			<option value="浦发银行">浦发银行</option>
+	   			<option value="民生银行">民生银行</option>
+	   		</select>
+		</div>
+		<!-- group1 -->
+		<div class="cf entergroup">
+			<span class="fl">银行卡卡号</span>
+		    <input class="fr bainpt pr0" name="bank_card_no" id="bank_card_no" type="text" placeholder="请输入银行卡卡号" value="{$userinfo.bankcard}" />
+		</div>
+		<!-- group1 end-->
+
+	</section>
+	<div class="banktip">
+		<p>温馨提示：</p>
+		<p>填写的银行卡须是本人名下的借记卡（储蓄卡）。</p>
+	</div>
+	<!-- paymoney end-->
+	
+
+
+<section class="msub" style="position: relative;">
+	<button type="button" class="mui-btn mui-btn-danger mui-button-pay mui-button-gry" onclick="saveInfo();" id="subBtn">
+		提交
+	</button>
+	<!-- 提示 -->
+	<div style="display: none; position: absolute;" class="errdeo" id="messageBox"></div>	
+</section>
+</form>
+</section>
+<div style="display: none;">
+	<Somnus:sitecfg name="sitecode"/>
+</div>
+</body>
+</html>
+<script src="__PUBLIC__/home/js/jquery-1-fe84a54bc0.11.1.min.js"></script>
+<script src="__PUBLIC__/home/js/jquery.validate.js"></script>
+<script>
+var userbank = "{$userinfo.bankname}";
+if(userbank != '' && userbank != null){
+	$("#bankname").html(userbank);
+	$("#banks").val(userbank);
+}
+function salert(msg){
+	$('#messageBox').html(msg);
+	$('#messageBox').show();
+	setTimeout(function(){
+		$('#messageBox').hide();
+	},2200);
+}
+function changeBank() {
+	var bank = $("#bank option:selected").text();
+	var bank_mr = "";
+	$("#bankname").html(bank);
+	$("#banks").val(bank);
+	if(bank != bank_mr) {
+		$("#bank_card_no").val("");
+	}
+}
+function saveInfo(){
+	var bankname = $("#banks").val();
+	var bankcard = $("#bank_card_no").val();
+	if(bankname != '' && bankname != null && bankcard != '' && bankcard != null){
+		$.post(
+			"{:U('Info/bankinfo')}",
+			{
+				bankname:bankname,
+				bankcard:bankcard
+			},
+			function (data,state){
+				if(state != "success"){
+					salert("请求数据失败,请重试!");
+				}else if(data.status == 1){
+					salert("保存成功!");
+					window.location.href = "{:U('Info/index')}";
+				}else{
+					salert(data.msg);
+				}
+			}
+		);
+	}else{
+		salert("银行卡资料填写不完整!");
+	}
+}
+</script>

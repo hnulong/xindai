@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title> <Somnus:sitecfg name="sitetitle"/> </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="description" content=" <Somnus:sitecfg name="sitedescription"/> ">
+<meta name="Keywords" content=" <Somnus:sitecfg name="sitekeywords"/> ">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/mui.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/feiqi-ee5401a8e6.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/newpay-bb7fcb5546.css">
+</head>
+<body>
+    <!-- header -->
+    <header class="mui-bar mui-bar-nav hnav">
+		<a href="{:U('Order/lists')}" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">借款详情</h1>
+	</header>
+	<!-- header end-->
+<div class="mui-content">
+	<article class="jiekuan">
+		<div class="oktit">
+			借款进度
+		</div>
+				<div class="cf okdan">
+			<div class="kprogress">
+				<span class="f14 red">
+					<php>
+						if($data['status'] == 2){
+							echo "交易成功";
+						}elseif($data['status'] == -1){
+							echo "交易失败";
+						}
+					</php>
+				</span>
+				<span class="fr fc9 f26"><span class="f18">¥</span>{$data.money}</span>
+			</div>
+			<div class="prgbar">
+					<div class="prg1">
+						<div>
+							<php>
+								if($data['status'] == 0)
+									echo '<span class="procir4"></span>';
+								else
+									echo '<span class="procir3"></span>';
+							</php>
+						</div>
+						<div class="mt4">
+							<p>
+								<php>
+									if($data['status'] == 0)
+										echo "支付失败";
+									else
+										echo "支付完成";
+								</php>
+							</p>
+							<p class="f12"></p>
+						</div>
+					</div>
+					<div class="prg2">
+						<div>
+							<php>
+								if($data['status'] == 1){
+									echo '<span class="procir2"></span>';
+								}elseif($data['status'] == -1){
+									echo '<span class="procir4"></span>';
+								}elseif($data['status'] == 2){
+									echo '<span class="procir3"></span>';
+								}else{
+									echo '<span class="procir1"></span>';
+								}
+							</php>
+						</div>
+						<div class="mt4">
+							<p>
+								<php>
+									if($data['status'] == 1){
+										echo "审核中";
+									}elseif($data['status'] == -1){
+										echo "审核不通过";
+									}elseif($data['status'] == 2){
+										echo "审核通过";
+									}else{
+										echo "订单审核";
+									}
+								</php>
+							</p>
+							<p class="f12"></p>
+						</div>
+					</div>
+					<div class="prg3">
+						<div>
+							<php>
+								if($data['status'] == 2){
+									echo '<span class="procir3"></span>';
+								}else{
+									echo '<span class="procir1"></span>';
+								}
+							</php>
+						</div>
+						<div class="mt4">
+							<p>
+								到账成功
+							</p>
+							<p class="f12"></p>
+						</div>
+					</div>
+			</div>
+		</div>
+			</article>
+	<article class="mt10 jiekuan">
+		<div class="oktit">
+			借款详情
+		</div>
+		<div class="cf okdan">
+			<div class="oktable">
+				<span class="fc9 listit">订单编号</span>
+				<span>{$data.ordernum}</span>
+			</div>
+			<div class="oktable">
+				<span class="fc9 listit">借款金额</span>
+				<span>￥{$data.money}</span>
+			</div>
+			<div class="oktable">
+				<span class="fc9 listit">借款期限</span>
+				<span>{$data.months}周</span>
+			</div>
+			<div class="oktable">
+				<span class="fc9 listit">到账银行</span>
+				<span>{$data.bank}</span>
+			</div>
+			<div class="oktable">
+				<span class="fc9 listit">收款账号</span>
+				<span>{$data.banknum}</span>
+			</div>
+			<div class="oktable">
+				<span class="fc9 listit">每周还款</span>
+				<span>¥{$data.monthmoney}</span>
+			</div>
+			<div class="oktable">
+				<span class="fc9 fl listit">还款说明</span>
+				<span class="fl deinfo">您需要在借款周期期限内 ，进入我的还款列表，进行还款。否则系统将产生逾期管理费</span>
+			</div>
+		</div>
+	</article>
+</div>
+<div style="display: none;">
+	<Somnus:sitecfg name="sitecode"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{$title} - <somnus:sitecfg name="sitetitle" /> </title>
+    <link href="__PUBLIC__/main/css/public.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__PUBLIC__/main/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/main/js/global.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/main/js/jquery.tab.js"></script>
+    <script src="__PUBLIC__/layer/layer.js"></script>
+</head>
+<body>
+<div id="dcWrap">
+
+    <include file="Public/header" />
+    <!-- dcHead 结束 -->
+    <include file="Public/left" />
+
+
+    <div id="dcMain"> <!-- 当前位置 -->
+        <div id="urHere">
+            {$title}
+        </div>
+        <div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+
+
+            {__CONTENT__}
+
+
+        </div>
+    </div>
+    <div class="clear"></div>
+    <include file='Public/footer' />
+    <!-- dcFooter 结束 -->
+    <div class="clear"></div>
+</div>
+</body>
+</html>

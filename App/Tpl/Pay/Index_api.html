@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订单支付系统</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+</head>
+<body>
+	<header class="bar bar-nav">
+	  <h1 class="title">收银台</h1>
+	</header>
+    <div class="content">
+
+
+		<p style="text-align: center;color: #6d6d72;margin: 1.75rem .75rem .5rem;">
+			<IF condition="$app eq '微信'">
+				请在微信打开页面,或保存以下图片使用微信扫码完成支付!
+			<else/>
+				请在{$llqname}中打开页面,或保存以下图片使用支付宝完成支付!
+			</IF>
+		</p>
+
+		<p style="text-align: center;">
+			<img src="http://qr.liantu.com/api.php?text={$url}" />
+		</p>
+
+	<div>
+
+	</div>
+    </div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	window.setInterval(ispay, 3000); 
+});
+function ispay(){
+	$.get(
+		"{:U('Pay/Res/ispay',array('ordernum' => $ordernum))}",
+		function(data,state){
+			if(state == 'success'){
+				if(data.status == 1){
+					window.location.href = "{:U('Home/Order/bills')}";
+				}
+			}
+		}
+	);
+}
+</script>
+</body>
+</html>
